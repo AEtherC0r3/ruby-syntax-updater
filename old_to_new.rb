@@ -10,9 +10,8 @@ file = File.read(ARGV[0])
 old = file.scan(/:[a-z_]+ =>/).uniq
 
 # Create the new hashes
-new = []
-for i in 0...old.length
-	new[i] = old[i].sub(':', '').sub(' =>', '') + ':'
+new = old.collect do |olh|
+	olh.sub(':', '').sub(' =>', '') + ':'
 end
 
 # Replace the old syntax with the new
@@ -22,4 +21,3 @@ end
 
 # Writeback the file
 File.write(ARGV[0], file)
-
